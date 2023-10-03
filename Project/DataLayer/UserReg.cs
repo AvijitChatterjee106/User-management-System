@@ -1,4 +1,5 @@
 ﻿using Project.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlClient;
 using System.Data;
 
@@ -39,6 +40,7 @@ namespace Project.DataLayer
 
                 uc2.password = Convert.ToString(srd["Password"]);
                 uc2.usertype = srd["RoleName"].ToString();
+                uc2.UserId = srd["UserId"].ToString();
             }
             srd.Close();
             
@@ -80,7 +82,7 @@ namespace Project.DataLayer
                 {
                     pname = Convert.ToString(sdr["Prod_Name"]),
                     ptype = sdr["Type_Name"].ToString(),
-                    pprice = (int)sdr["Prod_Price"],
+                    pprice = (decimal)sdr["Prod_Price"],
                     username = sdr["InsertedBy"].ToString(),
                     date = sdr["InsertedOn"].ToString()
                 });
@@ -90,11 +92,22 @@ namespace Project.DataLayer
             return lst;
         }
 
-        public static void insertProduct(ProductClass product)
+        public static void insertProduct(ProductClass product, string ui)
         {
+            
             SqlConnection conn = new SqlConnection("Data Source=DESKTOP-0F29O5M\\SQLEXPRESS;Initial Catalog=Machine_Test;Integrated Security=True");
-            SqlCommand cmd = new SqlCommand("Registration", conn);
+            SqlCommand cmd = new SqlCommand("insertProd", conn);
             cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@prod_name",product.pname);
+            cmd.Parameters.AddWithValue("@prod_price", product.pprice);
+            cmd.Parameters.AddWithValue("@prod_type", product.ptype);
+            cmd.Parameters.AddWithValue("@insertedby",ui);
+            conn.Open();
+            int n = cmd.ExecuteNonQuery();
+            if(n>0)
+            {
+                conn.Close();
+            }
         }
     }
 }

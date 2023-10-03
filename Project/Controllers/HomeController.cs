@@ -58,7 +58,10 @@ namespace Project.Controllers
             }
             else if (uc.password == user.password)
             {
-               
+                HttpContext.Session.SetString("email", uc.email);
+                HttpContext.Session.SetString("password", uc.password);
+                HttpContext.Session.SetString("UserId", uc.UserId);
+
                 uc.status = 200;
                 uc.password = "";
             }
@@ -80,11 +83,25 @@ namespace Project.Controllers
         }
         public JsonResult UserDetails1()
         {
-            return Json(UserReg.userdetails());
+            if (HttpContext.Session.GetString("email") != null && HttpContext.Session.GetString("password") != null)
+            {
+                return Json(UserReg.userdetails());
+            }
+            else
+            {
+                return Json(null);
+            }
         }
         public JsonResult Product()
         {
-            return Json(UserReg.AllProduct());
+            if (HttpContext.Session.GetString("email") != null && HttpContext.Session.GetString("password") != null)
+            {
+                return Json(UserReg.AllProduct());
+            }
+            else
+            {
+                return Json(null);
+            }
         }
 
         public IActionResult InsertProduct()
@@ -93,7 +110,12 @@ namespace Project.Controllers
         }
         public void InsProd(ProductClass pc)
         {
-             UserReg.insertProduct(pc);
+            string ui = HttpContext.Session.GetString("UserId");
+            UserReg.insertProduct(pc,ui);
+        }
+        public IActionResult ProductList()
+        {
+            return View();
         }
     }
 }
