@@ -1,0 +1,77 @@
+﻿@model Project.Models.UserClass;
+@{
+    ViewData["Title"] = "InsertProduct";
+}
+
+<html>
+
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="~/lib/jquery/product.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <br /><br />
+            <h1 class="text-center">Product Entry</h1>
+            <h2 clss="float-end">@Model.email</h2>
+            <hr />
+            <div class="col-sm-12" id="alldata">
+                <table class="table table-dark table-responsive">
+                   
+                   
+                        <tr>
+                            <td>
+                                <select class="form-control" id="ptype" name="ptype">
+                                    <option id="def">Select Product Type</option>
+                                    <option>ELECTRONICS</option>
+                                    <option>GROCERY</option>
+                                    <option>COSMETIC </option>
+                                    <option>FITNESS EQUIPMENT</option>
+                                    <option>SPORTS EQUIPMENT </option>
+                                    <option>EDUCATIONAL PRODUCTS</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" id="pname" placeholder="Enter Product Name" />
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" id="pprice" placeholder="Enter Product Price"/>
+                            </td>
+                            
+                        </tr>
+                  
+
+                </table>
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <button class="btn btn-success" id="btnps">Submit</button>
+               
+            </div>
+            <div class="col-sm-8">
+                
+            </div>  
+            <div class="col-sm-2">
+                
+                <button class="btn btn-success">Go to Product List</button>
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
+

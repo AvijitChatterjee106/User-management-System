@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+}
+
+<html>
+
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="~/lib/jquery/login.js"></script>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title" style="text-align:center">Login</h3>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-1"></div>
+
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <p>
+                                    <b>
+                                        UserName<a style="color:red">*</a>
+                                    </b>
+                                </p>
+                                <div class="form-line">
+                                    <input type="email" id="email" name="UserName" class="form-control" value="" placeholder="UserName(Email Id)" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
+
+                            <div class="form-group">
+                                <p>
+                                    <b>
+                                        Password<a style="color:red">*</a>
+                                    </b>
+                                </p>
+                                <div class="form-line">
+                                    <input type="text" id="password" name="PassWord" class="form-control" value="" placeholder="PassWord" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="row">
+                        <div class="col-md-4">
+                            <button type="button" style="width:72px;margin-left:23%;margin-bottom:10%" class="btn btn-primary form-control" id="btnlog" value="SAVE"> LOGIN</button>
+                        </div>
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <a class="btn btn-dark float-end w-auto text-center" href="/Home/Registration">Go To Registration Page</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+</body>
+
+
+</html>
+

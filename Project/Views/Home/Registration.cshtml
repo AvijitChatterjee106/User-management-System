@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewData["Title"] = "Registration";
+}
+
+<html>
+
+    <head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<script src="~/lib/jquery/registration.js"></script>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4" style="border:5px solid yellowgreen; padding:10px" >
+                <select class="form-control" id="usertype" name="UserRole">
+                    <option id="def">Select User Type</option>
+                    <option>Admin</option>
+                    <option>User</option>
+                </select>
+                <br />
+
+                <input type="text" id="txtname" class="form-control" placeholder="User Name" />
+                <br />
+                <input type="number" id="txtmob" class="form-control" placeholder=" Mobile Number / Contact Number" />
+                <br />
+                <input type="text" id="txtemail" class="form-control" placeholder="Email Address(Login Id)" />
+                <br />
+
+                <input type="password" id="txtpwd" class="form-control" placeholder=" Password(length min 8)" />
+                    
+                    <br />
+                   <br />
+                    <button class="btn btn-success w-25" id="btns">Registration</button>
+                    <a class="btn btn-dark float-end w-auto text-center" href="/Home/Login">Go To Login</a>
+                </div>
+                <div class="col-sm-4"></div>
+            </div>
+
+        </div>
+
+
+    </body>
+
+</html>
+
