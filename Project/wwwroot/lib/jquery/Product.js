@@ -10,12 +10,21 @@
             url: "/Home/InsProd",
             data: data,
             success: function () {
-                alert("Product is Succesfully stored");
+                alertify.alert("Product is Succesfully stored");
                 window.location.reload();
             },
-            error: function () {
-                alert("Something went worng");
+            //error: function () {
+            //    alert("Something went worng");
+            //}
+            error: function (xhr) {
+                // Display a user-friendly error message based on the response status
+                if (xhr.status === 500) {
+                    alertify.alert("An error occurred while storing the product: " + xhr.responseText);
+                } else {
+                    alertify.alert("Something went wrong. Please try again later.");
+                }
             }
         })
     })
+    
 })

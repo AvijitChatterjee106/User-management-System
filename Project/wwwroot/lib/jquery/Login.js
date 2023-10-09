@@ -13,7 +13,7 @@
                 dataType: 'json',
                 success: function (Status) {
                     if (Status.status == 200) {
-                        alert("Login Success");
+                        alertify.alert("Login Success");
                         if (Status.usertype == 'ADMIN') {
                             window.location.href = '/Home/UserDetails';
                         }
@@ -23,26 +23,33 @@
                         
                     }
                     else if (Status.status == 10) {
-                        alert("Invalid User!");
+                        alertify.error("Invalid User!");
                         return false;
                     }
                     else if (Status.status == 20) {
-                        alert("Wrong Password!");
+                        alertify.error("Wrong Password!");
                         return false;
                     }
                     else if (Status.status == 21) {
-                        alert("Contact to Admin");
+                        alertify.alert("Contact to Admin");
                         return false;
                     }
                     else {
-                        alert("something went wrong!");
+                        alertify.error("something went wrong!");
                         return false;
                     }
                 },
-                error: function () {
-                    alert("sometihng went wrong");
+                //error: function () {
+                //    alertify.alert("sometihng went wrong");
+                //}
+                error: function (xhr) {
+                    // Display a user-friendly error message based on the response status
+                    if (xhr.status === 500) {
+                        alertify.alert("An error occurred while LogIn: " + xhr.responseText);
+                    } else {
+                        alertify.alert("Something went wrong. Please try again later.");
+                    }
                 }
-
 
             })
         }
@@ -50,12 +57,12 @@
     function Validation() {
         var email = $("#email").val();
         if (email == "") {
-            alert("please Enter the UserName");
+            alertify.error("please Enter the UserName");
             return false;
         }
         var password = $("#password").val();
         if (password == "") {
-            alert("please Enter the Password");
+            alertify.error("please Enter the Password");
             return false;
         }
         return true;
