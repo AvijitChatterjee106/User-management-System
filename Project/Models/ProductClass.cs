@@ -22,6 +22,8 @@
         public string indate {  get; set; }
         public string apdate { get; set; }
         public string rejdate {  get; set; }
- 
+        public int code { get; set; }
+        public string msg { get; set; }
+
     }
 }

@@ -11,6 +11,7 @@
         public int status { get; set; }
         public int isApprove {  get; set; }
         public string UserId {  get; set; }
-
+        public int code { get; set; }
+        public string msg {  get; set; }
     }
 }

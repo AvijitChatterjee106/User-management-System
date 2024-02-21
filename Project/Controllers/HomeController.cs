@@ -11,11 +11,14 @@ namespace Project.Controllers
 {
     public class HomeController : Controller
     {
+       // public static UserReg ur = new UserReg();
+        public readonly IUserReg ur;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IUserReg userReg)
         {
             _logger = logger;
+            ur = userReg;
         }
 
         public IActionResult Index()
@@ -42,9 +45,9 @@ namespace Project.Controllers
         {
             try
             {
-                UserReg ur = new UserReg();
+                //UserReg ur = new UserReg();
                 ur.Reg(uc);
-                return Ok();
+                return Ok(uc);
             }catch (Exception ex)
             {
                 // SQL exception occurred, extract the error message
@@ -72,7 +75,7 @@ namespace Project.Controllers
             {
 
                 UserClass uc = new UserClass();
-                uc = UserReg.userLogin(user);
+                uc = ur.userLogin(user);
 
                 if (uc.email != user.email)
                 {
@@ -115,7 +118,7 @@ namespace Project.Controllers
         {
             if (HttpContext.Session.GetString("email") != null && HttpContext.Session.GetString("password") != null)
             {
-                return Json(UserReg.userdetails());
+                return Json(ur.userdetails());
             }
             else
             {
@@ -127,7 +130,7 @@ namespace Project.Controllers
         {
             if (HttpContext.Session.GetString("email") != null && HttpContext.Session.GetString("password") != null)
             {
-                return Json(UserReg.AllProduct());
+                return Json(ur.AllProduct());
             }
             else
             {
@@ -143,14 +146,24 @@ namespace Project.Controllers
         {
             try
             {
-                string ui = HttpContext.Session.GetString("UserId");
-                UserReg.insertProduct(pc, ui);
-                return Ok();
+                if (HttpContext.Session.GetString("email") != null && HttpContext.Session.GetString("password") != null)
+                {
+                    string ui = HttpContext.Session.GetString("UserId");
+                    ur.insertProduct(pc, ui);
+                    return Ok(pc);
+                }
+                else
+                {
+                    pc.code = 401;
+                    pc.msg = "Session Expired";
+                    return Ok(pc);
+                }
             }
             catch (SqlException ex)
             {
                 // SQL exception occurred, extract the error message
                 string errorMessage = ex.Message;
+                
                 return StatusCode(500, errorMessage); // Send a 500 Internal Server Error with the error message
             }
         }
@@ -164,11 +177,17 @@ namespace Project.Controllers
         {
             if (HttpContext.Session.GetString("email") != null && HttpContext.Session.GetString("password") != null)
             {
-                return Json(UserReg.AllProductlist());
+                return Json(ur.AllProductlist());
             }
             else
             {
-                return Json(null);
+                //return Json(null);
+                string loginRedirectUrl = "/Home/Login";
+                var responseData = new
+                {
+                    redirectUrl = loginRedirectUrl
+                };
+                return Json(responseData);
             }
             
         }
@@ -178,7 +197,7 @@ namespace Project.Controllers
 			{
 				try
 				{
-					var productList = UserReg.deProductlist1();
+					var productList = ur.deProductlist1();
 					return Json(productList);
 				}
 				catch (Exception ex)
@@ -198,7 +217,7 @@ namespace Project.Controllers
 			{
 				try
 				{
-					var productList = UserReg.deProductlist();
+					var productList = ur.deProductlist();
 					return Json(productList);
 				}
 				catch (Exception ex)
@@ -219,7 +238,7 @@ namespace Project.Controllers
                 try
                 {
                     string ui = HttpContext.Session.GetString("UserId");
-                    var productList = UserReg.apprProductlist(ui);
+                    var productList = ur.apprProductlist(ui);
                     return Json(productList);
                 }
                 catch (Exception ex)
@@ -239,7 +258,7 @@ namespace Project.Controllers
             {
                 try
                 {
-                    var productList = UserReg.rejProductlist();
+                    var productList = ur.rejProductlist();
                     return Json(productList);
                 }
                 catch (Exception ex)
@@ -260,7 +279,7 @@ namespace Project.Controllers
             {
                 string ui = HttpContext.Session.GetString("UserId");
                 ProductClass pc = new ProductClass();
-                pc = UserReg.upIsdelete(pname, ui);
+                pc = ur.upIsdelete(pname, ui);
                 return Ok(pc);
             }
             catch(Exception ex)
@@ -274,7 +293,7 @@ namespace Project.Controllers
             try
             {
                 string ui = HttpContext.Session.GetString("UserId");
-            UserReg.doActive(pname, ui);
+            ur.doActive(pname, ui);
                 // return View();
                 return Ok();
             }
@@ -289,14 +308,14 @@ namespace Project.Controllers
         {
             string ui = HttpContext.Session.GetString("UserId");
             ProductClass pc = new ProductClass();
-            pc = UserReg.upIsapprove(pname, ui);
+            pc = ur.upIsapprove(pname, ui);
             return Json(pc);
         }
         public JsonResult UpdateProductIsReject(string pname)
         {
             string ui = HttpContext.Session.GetString("UserId");
             ProductClass pc = new ProductClass();
-            pc = UserReg.upIsreject(pname, ui);
+            pc = ur.upIsreject(pname, ui);
             return Json(pc);
         }
        
@@ -305,18 +324,18 @@ namespace Project.Controllers
         public void UpdateuserdoApprove(string email)
         {
             string ui = HttpContext.Session.GetString("UserId");
-            UserReg.doApprove(email, ui);
+            ur.doApprove(email, ui);
         }
         
         public void UpdateuserdoInActive(string email)
         {
             string ui = HttpContext.Session.GetString("UserId");
-            UserReg.doInActive(email, ui);
+            ur.doInActive(email, ui);
         }
         public void UpdateuserdoActive(string email)
         {
             string ui = HttpContext.Session.GetString("UserId");
-            UserReg.douserActive(email, ui);
+            ur.douserActive(email, ui);
         }
     }
 }

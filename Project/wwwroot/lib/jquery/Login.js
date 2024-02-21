@@ -14,13 +14,14 @@
                 success: function (Status) {
                     if (Status.status == 200) {
                         alertify.alert("Login Success");
+                        setTimeout(function () {
                         if (Status.usertype == 'ADMIN') {
                             window.location.href = '/Home/UserDetails';
                         }
                         else {
                             window.location.href = '/Home/InsertProduct?email=' + Status.email+'';
                         }
-                        
+                        },1500)
                     }
                     else if (Status.status == 10) {
                         alertify.error("Invalid User!");

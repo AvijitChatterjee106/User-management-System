@@ -12,9 +12,17 @@
                 type: "POST",
                 url: "/Home/Registration1",
                 data: data,
-                success: function () {
-                    alertify.alert("You have successfully Registered");
-                    window.location.reload();
+                success: function (su) {
+                    if (su.code == 200) {
+                        alertify.success(su.msg);
+                        //window.location.reload();
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1500)
+                    }
+                    else {
+                        alertify.error("Something Went Worng !!!");
+                    }
                 },
                 //error: function () {
                 //    alertify.alert("Something Went Wrong");
